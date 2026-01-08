@@ -1,4 +1,4 @@
-import { CatPost } from '../types/CatPost';
+import type { CatPost } from '../types/CatPost';
 
 export const dummyPosts: CatPost[] = [
   {

@@ -1,9 +1,10 @@
 import MapView from './components/MapView';
+import { dummyPosts } from './data/dummyPosts';
 
 const App = () => {
   return (
     <div>
-      <MapView />
+      <MapView posts={dummyPosts} />
     </div>
   );
 };

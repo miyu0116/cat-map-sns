@@ -19,10 +19,9 @@ import 'leaflet/dist/leaflet.css';
 
 type MapViewProps = {
   posts: CatPost[]
-  onPinClick: (post: CatPost) => void
 }
 
-const MapView = () => {
+const MapView = ({ posts }: MapViewProps) => {
   const position: [number, number] = [35.6895, 139.6917]; // 東京の緯度経度
 
   return (
@@ -31,9 +30,14 @@ const MapView = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
       />
-      <Marker position={position}>
-        <Popup>サンプルの猫スポット</Popup>
-      </Marker>
+      {posts.map((post) => (
+        <Marker
+          key={post.id}
+          position={[post.lat, post.lng]}
+        >
+          <Popup>{post.comment}</Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
 };
