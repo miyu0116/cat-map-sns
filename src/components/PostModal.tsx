@@ -30,12 +30,30 @@ type PostModalProps = {
 }
 
 export function PostModal({ onSubmit, onClose }: PostModalProps) {
-  // NOTE:
-  // onSubmit / onClose はこの後実装で使用予定（現時点では未使用だからエラーあるけど気にしないで）
+  const handleSubmit = () => {
+    const dummyPost: CatPost = {
+      id: crypto.randomUUID(),
+      imageUrl: '',
+      comment: '',
+      lat: 0,
+      lng: 0,
+      createdAt: new Date().toISOString(),
+    }
 
+    onSubmit(dummyPost)
+  }
 
-  // TODO:
-  // - imageUrl / comment の入力フォームを作る
-  // - submit時に CatPost を組み立てて onSubmit に渡す
-  return null
+  return (
+    <div>
+      <h2>New Cat Post</h2>
+
+      <button onClick={handleSubmit}>
+        Submit (dummy)
+      </button>
+
+      <button onClick={onClose}>
+        Close
+      </button>
+    </div>
+  )
 }
