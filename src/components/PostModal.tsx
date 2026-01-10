@@ -7,9 +7,10 @@ import placeholderImg from './cat.png'
 type PostModalProps = {
   onSubmit: (post: CatPost) => void
   onClose: () => void
+  isSubmitting?: boolean
 }
 
-export function PostModal({ onSubmit, onClose }: PostModalProps) {
+export function PostModal({ onSubmit, onClose, isSubmitting = false }: PostModalProps) {
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [comment, setComment] = useState('')
@@ -88,7 +89,7 @@ export function PostModal({ onSubmit, onClose }: PostModalProps) {
     setComment(next)
   }
 
-  
+
 
   return (
     <div className="pm-root">
@@ -107,11 +108,11 @@ export function PostModal({ onSubmit, onClose }: PostModalProps) {
             </span>
           ) : (
             <span className="pm-file-label-text">
-              <img 
-                src={placeholderImg} 
-                className="pm-file-illustration" 
-                alt="イラスト" 
-                style={{ width: '64px', height: '64px', objectFit: 'contain' }} 
+              <img
+                src={placeholderImg}
+                className="pm-file-illustration"
+                alt="イラスト"
+                style={{ width: '64px', height: '64px', objectFit: 'contain' }}
               />
 
 
@@ -120,7 +121,7 @@ export function PostModal({ onSubmit, onClose }: PostModalProps) {
           )}
           <input className="pm-file-input" type="file" accept="image/*" onChange={handleFileChange} />
         </label>
-  {fileError && <div className="pm-file-error" role="alert">{fileError}</div>}
+        {fileError && <div className="pm-file-error" role="alert">{fileError}</div>}
 
         <div className="pm-media-row">
           <div className="pm-bubble pm-bubble--with-image">
@@ -138,7 +139,13 @@ export function PostModal({ onSubmit, onClose }: PostModalProps) {
         </div>
 
         <div className="pm-actions">
-          <button className="pm-btn pm-btn--primary" onClick={handleSubmit} disabled={!file || !!fileError}>投稿</button>
+          <button
+            className="pm-btn pm-btn--primary"
+            onClick={handleSubmit}
+            disabled={!file || !!fileError || isSubmitting}
+          >
+            {isSubmitting ? '送信中...' : '投稿'}
+          </button>
         </div>
       </div>
     </div>
